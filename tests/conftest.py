@@ -1,18 +1,21 @@
+# mypy: disable-error-code="no-untyped-def"
 import pytest
 
-
-from src.product import Product
 from src.category import Category
+from src.product import Product
+
 
 @pytest.fixture
 def sample_product():
     """Фикстура для создания тестового экземпляра товара"""
-    return Product(
-        name="Samsung Galaxy S23",
-        description="256GB, Gray",
-        price=95000.0,
-        quantity=5
-    )
+    return Product(name="Samsung Galaxy S23", description="256GB, Gray", price=95000.0, quantity=5)
+
+
+@pytest.fixture
+def product_no_quantity():
+    """Фикстура товара с количеством по умолчанию"""
+    return Product("Case for iPhone", "Silicone, Black", 500.0)
+
 
 @pytest.fixture
 def sample_category():

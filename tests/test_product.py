@@ -8,6 +8,12 @@ def test_product_init(sample_product):
     assert sample_product.price == 95000.0
     assert sample_product.quantity == 5
 
+
 def test_product_repr(sample_product):
     """Тест строкового представления"""
     assert repr(sample_product) == "Product(name='Samsung Galaxy S23', price=95000.0, quantity=5)"
+
+
+def test_product_default_quantity(product_no_quantity):
+    """Тест значения количества по умолчанию"""
+    assert product_no_quantity.quantity == 0
