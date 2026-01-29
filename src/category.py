@@ -1,4 +1,3 @@
-
 from typing import Optional
 
 from src.product import Product
@@ -13,7 +12,7 @@ class Category:
     category_count = 0
     product_count = 0
 
-    def __init__(self, name: str, description: str, products: Optional[list]=None) -> None:
+    def __init__(self, name: str, description: str, products: Optional[list] = None) -> None:
         """Метод для инициализации категорий товаров"""
         self.name = name
         self.description = description
@@ -26,9 +25,10 @@ class Category:
         self.__products.append(product)
         Category.product_count += 1
 
-    @property
+    @property  # type: ignore[no-redef]
     def products(self) -> str:
-        products_str = ''
+        """Геттер, который будет выводить список товаров в виде строк"""
+        products_str = ""
         for product in self.__products:
             products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return products_str

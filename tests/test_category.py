@@ -1,5 +1,5 @@
 # mypy: disable-error-code="no-untyped-def"
-from itertools import product
+
 
 from src.category import Category
 from src.product import Product
@@ -11,17 +11,17 @@ def test_category_init(sample_category):
     assert sample_category.description == "Смартфоны и гаджеты"
     assert len(sample_category.products_in_list) == 2
     assert sample_category.products == (
-        'iPhone, 100000.0 руб. Остаток: 2 шт.\n'
-        'Samsung, 80000.0 руб. Остаток: 5 шт.\n'
+        "iPhone, 100000.0 руб. Остаток: 2 шт.\n" "Samsung, 80000.0 руб. Остаток: 5 шт.\n"
     )
     assert sample_category.category_count == 1
     assert sample_category.product_count == 2
     assert repr(sample_category) == "Category(name='Электроника', products_count=2)"
 
+
 def test_category_empty_products(category_empty):
     """Тест инициализации без списка товаров"""
 
-    assert category_empty.products == ''
+    assert category_empty.products == ""
     assert category_empty.product_count == 0
 
 
