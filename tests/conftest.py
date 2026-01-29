@@ -33,4 +33,7 @@ def sample_category():
 @pytest.fixture
 def category_empty():
     """Фикстура для пустой категории"""
+    # Обнуляем счетчики перед тестом, чтобы они не накапливались от предыдущих запусков
+    Category.category_count = 0
+    Category.product_count = 0
     return Category("Книги", "Художественная литература")
