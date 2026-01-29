@@ -4,7 +4,7 @@
 import json
 from unittest.mock import mock_open, patch
 
-from src.utils import read_json
+from src.utils import create_object_from_json, read_json
 
 
 def test_read_json_success():
@@ -43,3 +43,30 @@ def test_read_json_unexpected_error(capsys):
         with patch("builtins.open", side_effect=Exception("Disk error")):
             result = read_json("error.json")
             assert result == []
+
+
+def test_create_object_from_json_success(sample_data):
+    """Проверка успешного создания объектов Category и Product"""
+    result = create_object_from_json(sample_data)
+
+    assert len(result) == 1
+    assert result[0].name == "Смартфоны"
+    assert len(result[0].products_in_list) == 1
+    assert result[0].products_in_list[0].name == "Iphone 15"
+
+
+def test_create_object_from_json_missing_field():
+    """Проверка пропуска категории, если в словаре не хватает ключа (KeyError)"""
+    bad_data = [
+        {"name": "Нет описания"},  # Пропустит из-за отсутствия 'description'
+        {"name": "Ок", "description": "Все есть", "products": []},  # Создаст
+    ]
+    result = create_object_from_json(bad_data)
+
+    assert len(result) == 1
+    assert result[0].name == "Ок"
+
+
+def test_create_object_from_json_empty_list():
+    """Проверка работы с пустым входным списком"""
+    assert create_object_from_json([]) == []

@@ -8,7 +8,7 @@ from src.product import Product
 @pytest.fixture
 def sample_product():
     """Фикстура для создания тестового экземпляра товара"""
-    return Product(name="Samsung Galaxy S23", description="256GB, Gray", price=95000.0, quantity=5)
+    return Product("Samsung Galaxy S23", "256GB, Gray", 95000.0, 5)
 
 
 @pytest.fixture
@@ -37,3 +37,14 @@ def category_empty():
     Category.category_count = 0
     Category.product_count = 0
     return Category("Книги", "Художественная литература")
+
+
+@pytest.fixture
+def sample_data():
+    return [
+        {
+            "name": "Смартфоны",
+            "description": "Техника",
+            "products": [{"name": "Iphone 15", "description": "128gb", "price": 90000.0, "quantity": 5}],
+        }
+    ]
