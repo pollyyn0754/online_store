@@ -8,6 +8,7 @@ class Product:
     description: str  # описание
     price: float  # цена
     quantity: int  # количество в наличии
+    cost_product = 0.0
 
     def __init__(self, name: str, description: str, price: float, quantity: int = 0) -> None:
         """Метод для инициализации экземпляра класса"""
@@ -15,10 +16,13 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        self.cost_product = price * quantity
 
-    def __repr__(self) -> str:
-        """Метод для отображения информации о товарах"""
-        return f"Product(name='{self.name}', price={self.price}, quantity={self.quantity})"
+    def __str__(self):
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        return self.cost_product + other.cost_product
 
     @classmethod
     def new_product(cls, product_data: dict, products_list: Optional[list] = None) -> Union[Self, list]:

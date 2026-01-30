@@ -1,5 +1,6 @@
 from typing import Optional
 
+
 from src.product import Product
 
 
@@ -25,18 +26,18 @@ class Category:
         self.__products.append(product)
         Category.product_count += 1
 
-    @property  # type: ignore[no-redef]
-    def products(self) -> str:
-        """Геттер, который будет выводить список товаров в виде строк"""
-        products_str = ""
-        for product in self.__products:
-            products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
-        return products_str
+    def __str__(self):
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
 
     @property
     def products_in_list(self) -> list:
         return self.__products
 
-    def __repr__(self) -> str:
-        """Метод для отображения информации о категориях товаров"""
-        return f"Category(name='{self.name}', products_count={len(self.__products)})"
+    @property  # type: ignore[no-redef]
+    def products(self) -> str:
+        """Геттер, который будет выводить список товаров в виде строк"""
+        products_str = ""
+        for product in self.__products:
+            products_str += f"{str(product)}\n"
+        return products_str
