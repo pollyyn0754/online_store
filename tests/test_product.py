@@ -1,5 +1,6 @@
 # mypy: disable-error-code="no-untyped-def"
-from src.category import Category
+
+
 from src.product import Product
 
 
@@ -11,9 +12,9 @@ def test_product_init(sample_product):
     assert sample_product.quantity == 5
 
 
-def test_product_repr(sample_product):
+def test_product_str(sample_product):
     """Тест строкового представления"""
-    assert repr(sample_product) == "Product(name='Samsung Galaxy S23', price=95000.0, quantity=5)"
+    assert str(sample_product) == "Samsung Galaxy S23, 95000.0 руб. Остаток: 5 шт."
 
 
 def test_product_default_quantity(product_no_quantity):
@@ -70,3 +71,11 @@ def test_new_product_update_existing():
         {"name": "Samsung Galaxy S23", "description": "256GB, Серый цвет, 200MP камера",
          "price": 180000.0, "quantity": 10}
     ]
+
+
+def test_product_add_sample(product_cost1, product_cost2):
+    assert (product_cost1 + product_cost2) ==  2580000.0
+
+
+def test_product_add_invalid(product_cost1, product_no_quantity):
+    assert (product_cost1 + product_no_quantity) == 900000.0

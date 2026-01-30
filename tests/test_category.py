@@ -15,7 +15,7 @@ def test_category_init(sample_category):
     )
     assert sample_category.category_count == 1
     assert sample_category.product_count == 2
-    assert repr(sample_category) == "Category(name='Электроника', products_count=2)"
+    assert str(sample_category) == "Электроника, количество продуктов: 7 шт."
 
 
 def test_category_empty_products(category_empty):

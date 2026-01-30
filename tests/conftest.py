@@ -3,6 +3,7 @@ import pytest
 
 from src.category import Category
 from src.product import Product
+from src.product_iterator import ProductIterator
 
 
 @pytest.fixture
@@ -13,7 +14,7 @@ def sample_product():
 
 @pytest.fixture
 def product_no_quantity():
-    """Фикстура товара с количеством по умолчанию"""
+    """Фикстура товара без указания количества"""
     return Product("Case for iPhone", "Silicone, Black", 500.0)
 
 
@@ -48,3 +49,17 @@ def sample_data():
             "products": [{"name": "Iphone 15", "description": "128gb", "price": 90000.0, "quantity": 5}],
         }
     ]
+
+
+@pytest.fixture
+def product_iterator(sample_category):
+    return ProductIterator(sample_category)
+
+
+@pytest.fixture
+def product_cost1():
+    return Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+
+@pytest.fixture
+def product_cost2():
+    return Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
