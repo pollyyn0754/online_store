@@ -62,19 +62,27 @@ def test_new_product_update_existing():
     """Тест обновления существующего продукта (сложение количества и выбор макс. цены)"""
     data = {"name": "Samsung Galaxy S23", "description": "128gb", "price": 120000.0, "quantity": 5}
     new_data = [
-        {"name": "Samsung Galaxy S23", "description": "256GB, Серый цвет, 200MP камера",
-         "price": 180000.0, "quantity": 5}
+        {
+            "name": "Samsung Galaxy S23",
+            "description": "256GB, Серый цвет, 200MP камера",
+            "price": 180000.0,
+            "quantity": 5,
+        }
     ]
     updated_product = Product.new_product(data, new_data)
 
     assert updated_product == [
-        {"name": "Samsung Galaxy S23", "description": "256GB, Серый цвет, 200MP камера",
-         "price": 180000.0, "quantity": 10}
+        {
+            "name": "Samsung Galaxy S23",
+            "description": "256GB, Серый цвет, 200MP камера",
+            "price": 180000.0,
+            "quantity": 10,
+        }
     ]
 
 
 def test_product_add_sample(product_cost1, product_cost2):
-    assert (product_cost1 + product_cost2) ==  2580000.0
+    assert (product_cost1 + product_cost2) == 2580000.0
 
 
 def test_product_add_invalid(product_cost1, product_no_quantity):

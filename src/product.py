@@ -18,10 +18,10 @@ class Product:
         self.quantity = quantity
         self.cost_product = price * quantity
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
-    def __add__(self, other):
+    def __add__(self, other: Self) -> float:
         return self.cost_product + other.cost_product
 
     @classmethod
