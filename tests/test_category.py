@@ -1,5 +1,6 @@
 # mypy: disable-error-code="no-untyped-def"
 
+import pytest
 
 from src.category import Category
 from src.product import Product
@@ -46,3 +47,11 @@ def test_add_multiple_products(category_empty):
 
     assert category_empty.product_count == 2
     assert len(category_empty.products_in_list) == 2
+
+
+def test_add_multiple_products_error(category_empty):
+    with pytest.raises(TypeError):
+        category_empty.add_product("Не товар, а просто строка")
+
+    with pytest.raises(TypeError):
+        category_empty.add_product(12345)

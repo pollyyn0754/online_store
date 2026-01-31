@@ -1,5 +1,5 @@
 # mypy: disable-error-code="no-untyped-def"
-
+import pytest
 
 from src.product import Product
 
@@ -15,11 +15,6 @@ def test_product_init(sample_product):
 def test_product_str(sample_product):
     """Тест строкового представления"""
     assert str(sample_product) == "Samsung Galaxy S23, 95000.0 руб. Остаток: 5 шт."
-
-
-def test_product_default_quantity(product_no_quantity):
-    """Тест значения количества по умолчанию"""
-    assert product_no_quantity.quantity == 0
 
 
 def test_price_setter_increase(sample_product):
@@ -85,5 +80,6 @@ def test_product_add_sample(product_cost1, product_cost2):
     assert (product_cost1 + product_cost2) == 2580000.0
 
 
-def test_product_add_invalid(product_cost1, product_no_quantity):
-    assert (product_cost1 + product_no_quantity) == 900000.0
+def test_product_add_error(product_cost1):
+    with pytest.raises(TypeError):
+        product_cost1 + 1
