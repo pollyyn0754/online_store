@@ -4,25 +4,31 @@ from typing import Optional, Self, Union
 class Product:
     """Класс для представления товара"""
 
-    name: str  # название
-    description: str  # описание
-    price: float  # цена
-    quantity: int  # количество в наличии
-    cost_product = 0.0
+    name: str
+    description: str
+    price: float
+    quantity: int
 
-    def __init__(self, name: str, description: str, price: float, quantity: int = 0) -> None:
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         """Метод для инициализации экземпляра класса"""
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
-        self.cost_product = price * quantity
+
+    @property
+    def cost_product(self) -> float:
+        """Вычисляемое свойство для общей стоимости товара на складе"""
+        return self.__price * self.quantity
 
     def __str__(self) -> str:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other: Self) -> float:
-        return self.cost_product + other.cost_product
+        """Сложение объектов по общей стоимости товара на складе"""
+        if type(other) is type(self):
+            return self.cost_product + other.cost_product
+        raise TypeError("Можно складывать только товары одного класса")
 
     @classmethod
     def new_product(cls, product_data: dict, products_list: Optional[list] = None) -> Union[Self, list]:
@@ -32,7 +38,7 @@ class Product:
         # Извлекаем параметры из словаря
         name = product_data.get("name", "")
         description = product_data.get("description", "")
-        price = round(product_data.get("price", 0.0))
+        price = product_data.get("price", 0.0)
         quantity = int(product_data.get("quantity", 0))
 
         if products_list:

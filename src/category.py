@@ -6,9 +6,9 @@ from src.product import Product
 class Category:
     """Класс для представления категорий товаров"""
 
-    name: str  # название
-    description: str  # описание
-    products: list  # список товаров категории
+    name: str
+    description: str
+    products: list
     category_count = 0
     product_count = 0
 
@@ -20,14 +20,17 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(self.__products) if products else 0
 
-    def add_product(self, product: Product) -> None:
-        """Метод для добавления товара в приватный список"""
-        self.__products.append(product)
-        Category.product_count += 1
-
     def __str__(self) -> str:
         total_quantity = sum(product.quantity for product in self.__products)
         return f"{self.name}, количество продуктов: {total_quantity} шт."
+
+    def add_product(self, product: Product) -> None:
+        """Метод для добавления товара в приватный список"""
+        if isinstance(product, Product):
+            self.__products.append(product)
+            Category.product_count += 1
+        else:
+            raise TypeError
 
     @property
     def products_in_list(self) -> list:
