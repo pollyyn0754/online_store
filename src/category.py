@@ -1,9 +1,10 @@
 from typing import Optional
 
+from src.base_entity import BaseEntity
 from src.product import Product
 
 
-class Category:
+class Category(BaseEntity):
     """Класс для представления категорий товаров"""
 
     name: str
