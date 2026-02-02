@@ -1,7 +1,10 @@
 from typing import Optional, Self, Union
 
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
 
-class Product:
+
+class Product(BaseProduct, PrintMixin):
     """Класс для представления товара"""
 
     name: str
@@ -11,18 +14,20 @@ class Product:
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         """Метод для инициализации экземпляра класса"""
+
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     @property
     def cost_product(self) -> float:
         """Вычисляемое свойство для общей стоимости товара на складе"""
-        return self.__price * self.quantity
+        return self.price * self.quantity
 
     def __str__(self) -> str:
-        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other: Self) -> float:
         """Сложение объектов по общей стоимости товара на складе"""
@@ -31,7 +36,7 @@ class Product:
         raise TypeError("Можно складывать только товары одного класса")
 
     @classmethod
-    def new_product(cls, product_data: dict, products_list: Optional[list] = None) -> Union[Self, list]:
+    def new_product(cls, product_data: dict, products_list: Optional[list] = None) -> Union['Product', list]:
         """Класс-метод, который будет принимать на вход параметры товара в словаре
         и возвращать созданный объект или обновляет существующий в списке current_products"""
 
