@@ -1,6 +1,7 @@
 from typing import Optional
 
 from src.base_entity import BaseEntity
+from src.exeptions import ZeroQuantityProduct
 from src.product import Product
 
 
@@ -28,8 +29,19 @@ class Category(BaseEntity):
     def add_product(self, product: Product) -> None:
         """Метод для добавления товара в приватный список"""
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.product_count += 1
+
+            try:
+                if product.quantity == 0:
+                    raise ZeroQuantityProduct("Товар с нулевым количеством не может быть добавлен")
+            except ZeroQuantityProduct as e:
+                print(str(e))
+            else:
+                self.__products.append(product)
+                Category.product_count += 1
+                print("Товар добавлен успешно")
+            finally:
+                print("Обработка добавления товара завершена")
+
         else:
             raise TypeError
 
@@ -44,3 +56,9 @@ class Category(BaseEntity):
         for product in self.__products:
             products_str += f"{str(product)}\n"
         return products_str
+
+    def middle_price(self) -> float:
+        try:
+            return float(sum(product.price for product in self.__products) / len(self.__products))
+        except ZeroDivisionError:
+            return 0.0

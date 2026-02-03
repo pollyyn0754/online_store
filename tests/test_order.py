@@ -1,7 +1,6 @@
 # mypy: disable-error-code="no-untyped-def"
 import pytest
 
-
 from src.order import Order
 
 

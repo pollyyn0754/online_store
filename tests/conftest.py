@@ -17,7 +17,7 @@ def sample_product():
 @pytest.fixture
 def product_no_quantity():
     """Фикстура товара без указания количества"""
-    return Product("Case for iPhone", "Silicone, Black", 500.0)
+    return Product("Case for iPhone", "Silicone, Black", 500.0, 0)
 
 
 @pytest.fixture

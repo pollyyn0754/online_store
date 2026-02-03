@@ -33,7 +33,7 @@ def test_add_product_increases_count(category_empty, sample_product):
     category_empty.add_product(sample_product)
 
     assert Category.product_count == initial_count + 1
-    # Проверяем, что товар действительно в списке (через доступ к приватному полю для теста)
+
     assert sample_product in category_empty._Category__products
 
 
@@ -55,3 +55,20 @@ def test_add_multiple_products_error(category_empty):
 
     with pytest.raises(TypeError):
         category_empty.add_product(12345)
+
+
+def test_middle_price(sample_category, category_empty):
+    assert sample_category.middle_price() == 90000.0
+    assert category_empty.middle_price() == 0
+
+
+def test_custom_exception(sample_category, capsys):
+    assert len(sample_category.products_in_list) == 2
+
+    product_add = Product("Case for iPhone", "Silicone, Black", 500.0, 0)
+
+    sample_category.add_product(product_add)
+    message = capsys.readouterr()
+
+    assert message.out.strip().split("\n")[-2] == "Товар с нулевым количеством не может быть добавлен"
+    assert message.out.strip().split("\n")[-1] == "Обработка добавления товара завершена"

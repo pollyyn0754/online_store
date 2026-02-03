@@ -18,7 +18,10 @@ class Product(BaseProduct, PrintMixin):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity >= 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с отрицательным количеством не может быть добавлен")
         super().__init__()
 
     @property
@@ -36,7 +39,7 @@ class Product(BaseProduct, PrintMixin):
         raise TypeError("Можно складывать только товары одного класса")
 
     @classmethod
-    def new_product(cls, product_data: dict, products_list: Optional[list] = None) -> Union['Product', list]:
+    def new_product(cls, product_data: dict, products_list: Optional[list] = None) -> Union["Product", list]:
         """Класс-метод, который будет принимать на вход параметры товара в словаре
         и возвращать созданный объект или обновляет существующий в списке current_products"""
 

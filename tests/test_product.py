@@ -12,6 +12,12 @@ def test_product_init(sample_product):
     assert sample_product.quantity == 5
 
 
+def test_product_init_error(capsys):
+    """Тест попытки установить некорректное колличество"""
+    with pytest.raises(ValueError):
+        Product("Case for iPhone", "Silicone, Black", 500.0, -1)
+
+
 def test_product_str(sample_product):
     """Тест строкового представления"""
     assert str(sample_product) == "Samsung Galaxy S23, 95000.0 руб. Остаток: 5 шт."
